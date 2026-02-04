@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <section>
+        <h2>Welcome, {{ target_user.first_name }} {{ target_user.last_name }}</h2>
+        <div>
+            <form action="{% url 'user_page' target_user.id %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="target_username" value="{{ target_user.username }}"><br>
+                <input type="text" name="first_name" value="{{ target_user.first_name }}"><br>
+                <input type="text" name="last_name" value="{{ target_user.last_name }}"><br>
+                <input type="email" name="email" value="{{ target_user.email }}"><br>
+                <input type="password" name="password" value=""><br>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
