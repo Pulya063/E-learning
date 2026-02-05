@@ -3,7 +3,7 @@ from django.urls import path
 from teacher import views
 
 urlpatterns = [
-    path('teachers', views.teachers_page, name='teachers_page'),
+    path('teachers', views.teachers_page, name='teacher_page'),
     path('teachers/lessons', views.all_lessons, name='all_lessons'),
     path('teachers/lesson/<int:lesson_id>', views.one_lesson, name='one_lesson'),
     path('teachers/lesson/<int:lesson_id>/absence', views.check_student_absence, name='check_student_absence'),

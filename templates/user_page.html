@@ -10,10 +10,15 @@
         <div>
             <form action="{% url 'user_page' target_user.id %}" method="POST">
                 {% csrf_token %}
-                <input type="text" name="target_username" value="{{ target_user.username }}"><br>
+                <label>Логін:</label>
+                <input type="text" name="username" value="{{ target_user.username }}"><br>
+                <label>Імя:</label>
                 <input type="text" name="first_name" value="{{ target_user.first_name }}"><br>
+                <label>Прізвище:</label>
                 <input type="text" name="last_name" value="{{ target_user.last_name }}"><br>
+                <label>Email:</label>
                 <input type="email" name="email" value="{{ target_user.email }}"><br>
+                <label>Пароль:</label>
                 <input type="password" name="password" value=""><br>
                 <button type="submit">Update</button>
             </form>

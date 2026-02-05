@@ -1,8 +1,13 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 
-# Create your views here.
+from common.other import check_user_group
+
+
+@check_user_group('Teachers')
 def teachers_page(request):
-    return ""
+    teacher = User.objects.get(id=request.user.id)
+    return render(request, 'teachers_page.html', {'user': teacher})
 
 
 def all_lessons(request):

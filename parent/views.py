@@ -1,7 +1,13 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 
-def parents_page(request):
-    return ""
+from common.other import check_user_group
+
+
+@check_user_group('Parents')
+def parent_page(request):
+    parent = User.objects.get(id=request.user.id)
+    return render(request, 'parents_page.html', {'user': parent})
 
 
 def parents_student_page(request):

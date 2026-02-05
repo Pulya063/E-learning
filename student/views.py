@@ -1,8 +1,10 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
-
-# Create your views here.
+from common.other import check_user_group
+@check_user_group('Students')
 def student_page(request):
-    return ""
+    student = User.objects.get(id = request.user.id)
+    return render(request, 'students_page.html', {'user': student})
 
 
 def submit_homework(request):

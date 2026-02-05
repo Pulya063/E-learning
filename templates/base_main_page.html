@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+{% csrf_token %}
+<header>
+    <h2>Вітаю, {{ user.username }}!</h2>
+</header>
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+{% block content %}
+{# Place for special children code #}
+{% endblock %}
+</body>
+</html>
