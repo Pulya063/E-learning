@@ -1,3 +1,5 @@
+import datetime
+
 from django.conf import settings
 from django.db import models
 from django.db.models import ForeignKey
@@ -9,19 +11,19 @@ class SchoolClass(models.Model):
     letter = CharField(max_length=1)
 
     def __str__(self):
-        return f"start_year: {self.start_year}, letter: {self.letter}"
+        return f"{self.start_year} {self.letter}"
 
 
 class Subject(models.Model):
     subject_name = CharField(max_length=70)
 
     def __str__(self):
-        return f"subject_name: {self.subject_name}"
+        return f"{self.subject_name}"
 
 
 class Lesson(models.Model):
     subject = ForeignKey(Subject, on_delete=models.CASCADE)
-    lesson_date = DateField()
+    lesson_date = DateField(default=datetime.date.today())
     teacher = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     lesson_name = CharField(max_length=70)
     description = TextField(max_length=1000)

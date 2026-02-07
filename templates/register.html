@@ -7,19 +7,15 @@
 <body>
 <section>
     <div>
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{   message }}</p>
+            {% endfor %}
+        {% endif %}
         <form action="{% url 'register' %}" method="POST">
             {% csrf_token %}
-            <label>Імя:</label>
-            <input type="text" name="first_name"><br>
-            <label>Прізвище:</label>
-            <input type="text" name="last_name"><br>
-            <label>Логін:</label>
-            <input type="text" name="username"><br>
-            <label>Email:</label>
-            <input type="email" name="email"><br>
-            <label>Пароль:</label>
-            <input type="password" name="password"><br>
-            <button>Зареєструватись</button>
+            {{ form }}
+            <button type="submit">Зареєструватись</button>
         </form>
     </div>
 </section>

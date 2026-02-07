@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from parent.models import Parents
+
+@admin.register(Parents)
+class ParentAdmin(admin.ModelAdmin):
+    list_display = ['user_id', 'student']
+
+    search_fields = ['user_id']
