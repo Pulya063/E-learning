@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% extends "base_main_page.html" %}
+{% block title %}Створення Уроку{% endblock %}
+{% block content %}
+<section>
+    <form action="{% url 'all_lessons_teacher' %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Створити</button>
+    </form>
+    {% for lesson in all_teachers_lessons %}
+        <h2>Предмети:</h2>
+        <div>
+            <label>Назва:</label>
+            {{ lesson.lesson_name }}<br>
+            <label>Дати:</label>
+            {{ lesson.lesson_date }}<br>
+            <label>Домашня робота:</label>
+            {{ lesson.homework }}<br>
+            <label>Опис:</label>
+            {{ lesson.description }}<br>
+            <label>Предмет:</label>
+            {{ lesson.subject }}
+        </div>
+    {% endfor %}
+</section>
+<section>
+    <form action="/teachers/lessons/{{ lesson.id }}/absence" method="POST">
+        {% csrf_token %}
+        {% for one_student in all_student %}
+            <input type="checkbox" name="absence" id="student--{{ one_student.id }}" value="{{ one_student.id }}">
+            <label for="student--{{ one_student.id }}">{{ one_student.id }}</label>
+        {% endfor %}
+    </form>
+</section>
+{% endblock %}

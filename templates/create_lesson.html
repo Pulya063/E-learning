@@ -1,13 +1,17 @@
-<!DOCTYPE html>
 {% extends "base_main_page.html" %}
-{% block title %}Створення Уроку{% endblock %}
+{% block title %}Створити урок{% endblock %}
 {% block content %}
-<section>
-    <h2></h2>
-    <form action="{% url 'all_lessons' %}" method="POST">
+<div class="card" style="max-width: 800px; margin: 0 auto;">
+    <h2>Створити новий урок</h2>
+
+    <form action="{% url 'all_lessons_teacher' %}" method="POST">
         {% csrf_token %}
-        {{ form }}
-        <button type="submit">Створити</button>
+        {{ form.as_p }}
+
+        <div style="margin-top: 20px; text-align: right;">
+            <a href="{% url 'teacher_page' %}" class="button" style="background-color: #757575; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin-right: 10px;">Скасувати</a>
+            <button type="submit">Створити урок</button>
+        </div>
     </form>
-</section>
+</div>
 {% endblock %}

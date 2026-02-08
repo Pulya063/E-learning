@@ -10,6 +10,14 @@ class SchoolClass(models.Model):
     start_year = DateField()
     letter = CharField(max_length=1)
 
+    def date_validator(self):
+        if type(self.start_year) != datetime.date:
+            self.start_year = datetime.date(int(self.start_year.year), 8, 1)
+            return self.start_year
+        else:
+            return self.start_year
+
+
     def __str__(self):
         return f"{self.start_year} {self.letter}"
 

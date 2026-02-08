@@ -1,8 +1,14 @@
-<!DOCTYPE html>
 {% extends "base_main_page.html" %}
 {% block title %}Сторінка студента{% endblock %}
 {% block content %}
-<section>
-    <h2></h2>
-</section>
+<div class="card">
+    <h2>Кабінет студента</h2>
+    <p>Привіт, {{ user.first_name }}!</p>
+
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+        <a href="{% url 'all_lessons' %}" class="button" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Мої уроки</a>
+        <a href="#" class="button" style="background-color: #2196F3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Мої оцінки</a>
+        <a href="{% url 'user_page' user.id %}" class="button" style="background-color: #ff9800; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Мій профіль</a>
+    </div>
+</div>
 {% endblock %}

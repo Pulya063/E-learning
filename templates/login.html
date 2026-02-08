@@ -2,22 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вхід</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-{% if messages %}
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-{% endif %}
-<section>
-    <div>
+    <div class="card" style="max-width: 400px; margin: 50px auto;">
+        <h2 style="text-align: center;">Вхід</h2>
+        {% if messages %}
+            <div class="messages">
+            {% for message in messages %}
+                <p class="{{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+            </div>
+        {% endif %}
         <form action="{% url 'login' %}" method="POST">
             {% csrf_token %}
-            {{ form }}
-            <button type="submit">Увійти</button>
+            {{ form.as_p }}
+            <button type="submit" style="width: 100%;">Увійти</button>
         </form>
+        <p style="text-align: center; margin-top: 15px;">
+            Немає акаунту? <a href="{% url 'register' %}">Зареєструватися</a>
+        </p>
     </div>
-</section>
 </body>
 </html>

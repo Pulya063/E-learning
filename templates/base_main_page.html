@@ -4,20 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 {% csrf_token %}
 <header>
     <h2>Вітаю, {{ user.username }}!</h2>
+    <nav>
+        <a href="{% url 'logout' %}">Вийти</a>
+    </nav>
 </header>
 {% if messages %}
+    <div class="messages">
     {% for message in messages %}
-        <p>{{ message }}</p>
+        <p class="{{ message.tags }}">{{ message }}</p>
     {% endfor %}
+    </div>
 {% endif %}
 
+<main>
 {% block content %}
 {# Place for special children code #}
 {% endblock %}
+</main>
 </body>
 </html>
