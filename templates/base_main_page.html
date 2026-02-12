@@ -10,7 +10,7 @@
 <body>
 {% csrf_token %}
 <header>
-    <h2>Вітаю, {{ user.username }}!</h2>
+    <a href="{% url 'main_page' %}">Вітаю, {{ user.username }}!</a>
     <nav>
         <a href="{% url 'logout' %}">Вийти</a>
     </nav>

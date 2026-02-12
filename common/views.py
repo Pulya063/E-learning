@@ -28,19 +28,26 @@ def login_view(request):
 
 def register(request):
     if request.method == "POST":
-        user_register = UserRegister(request.POST)
+        form = UserRegister(request.POST)
 
-        if not user_register.is_valid():
+        if form.is_valid():
+            user_register = form.save(commit=False)
+
+            raw_password = form.cleaned_data.get('password')
+
+            user_register.set_password(raw_password)
+
+            user_register.save()
+
+            messages.success(request, "You are registered")
+            return redirect("login")
+
+        else:
             messages.error(request, "Invalid credentials")
-            return redirect('register')
+    else:
+        user_register = UserRegister()
 
-        user_register.save()
-        messages.success(request, "You are registered")
-        return redirect("login")
-
-    user_register = UserRegister()
     return render(request, 'register.html', {"form": user_register})
-
 
 def logout_view(request):
     logout(request)
@@ -83,3 +90,10 @@ def main_page(request):
     else:
         messages.error(request, "Please login first.")
         return redirect('login')
+
+
+
+def start_page(request):
+    if request.user:
+        return redirect('main_page')
+    return redirect('login')

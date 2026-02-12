@@ -3,53 +3,124 @@
 {% block title %}Урок: {{ lesson.lesson_name }}{% endblock %}
 
 {% block content %}
-<div class="card">
-    <h2>Деталі уроку</h2>
-    {% if lesson %}
-        <div style="margin-bottom: 20px;">
-            <p><strong>Назва:</strong> {{ lesson.lesson_name }}</p>
-            <p><strong>Дата:</strong> {{ lesson.lesson_date }}</p>
-            <p><strong>Предмет:</strong> {{ lesson.subject.subject_name }}</p>
-            <p><strong>Клас:</strong> {{ lesson.school_class.start_year.year }} - {{ lesson.school_class.letter }}</p>
-            <p><strong>Опис:</strong> {{ lesson.description }}</p>
-            <p><strong>Домашнє завдання:</strong> {{ lesson.homework }}</p>
-        </div>
-    {% else %}
-        <p>Урок не знайдено.</p>
-    {% endif %}
+<section>
+    <div class="card">
+        <h2>Деталі уроку</h2>
+        {% if lesson %}
+            <div style="margin-bottom: 20px;">
+                <p><strong>Назва:</strong> {{ lesson.lesson_name }}</p>
+                <p><strong>Дата:</strong> {{ lesson.lesson_date }}</p>
+                <p><strong>Предмет:</strong> {{ lesson.subject.subject_name }}</p>
+                <p><strong>Клас:</strong> {{ lesson.school_class.start_year }} - {{ lesson.school_class.letter }}</p>
+                <p><strong>Опис:</strong> {{ lesson.description }}</p>
+                <p><strong>Домашнє завдання:</strong> {{ lesson.homework }}</p>
+            </div>
+        {% else %}
+            <p>Урок не знайдено.</p>
+        {% endif %}
 
-    <div style="margin-top: 20px;">
-        <a href="{% url 'all_lessons_teacher' %}" class="button" style="background-color: #757575; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Назад до списку</a>
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
+            <a href="{% url 'all_lessons_teacher' %}" class="button" style="background-color: #757575; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Назад до списку</a>
+        </div>
     </div>
-</div>
+</section>
 
 {% if all_students %}
-<div class="card"><br><br>
-    <h3>Відвідування</h3>
-    <form action="{% url 'check_student_absence' lesson.id %}" method="POST">
-        {% csrf_token %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Студент</th>
-                    <th>Відсутній</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for student in all_students %}
-                <tr>
-                    <td>{{ student.first_name }} {{ student.last_name }}</td>
-                    <td>
-                        <input type="checkbox" name="absence_student_ids" value="{{ student.id }}" id="absence_{{ student.id }}" {{ student.is_absent }}>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <div style="margin-top: 20px; text-align: left">
-            <button type="submit">Зберегти відвідування</button>
-        </div>
-    </form>
-</div>
+<section>
+    <div class="card" style="margin-top: 20px;">
+        <h3>Відвідування</h3>
+        <form action="{% url 'check_student_absence' lesson.id %}" method="POST">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Студент</th>
+                        <th>Відсутній</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in all_students %}
+                    <tr>
+                        <td>{{ student.first_name }} {{ student.last_name }}</td>
+                        <td>
+                            <input type="checkbox" name="absence_student_ids" value="{{ student.id }}" id="absence_{{ student.id }}" {{ student.is_absent }}>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div style="margin-top: 20px; text-align: left">
+                <button type="submit">Зберегти відвідування</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section>
+    <div class="card" style="margin-top: 20px;">
+        <h3>Журнал оцінок</h3>
+        <form action="{% url 'grade' lesson_id=lesson.id %}" method="POST">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Студент</th>
+                        <th>Оцінка</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in all_students %}
+                        <tr>
+                            <td>{{ student.first_name }} {{ student.last_name }}</td>
+                            <td>
+                                <input type="number" name="grade_{{ student.id }}" min="1" max="12" style="width: 60px;" value="{{ student.grade_value }}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div style="margin-top: 20px; text-align: left">
+                <button type="submit">Зберегти оцінки</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section>
+    <div class="card" style="margin-top: 20px;">
+        <h3>Домашні завдання</h3>
+         {% if homeworks %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Студент</th>
+                        <th>Текст відповіді</th>
+                        <th>Оцінка</th>
+                        <th>Дії</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for hw in homeworks %}
+                    <tr>
+                        <form action="{% url 'lesson_homework' lesson_id=lesson.id homework_id=hw.id %}" method="POST">
+                            {% csrf_token %}
+                            <td>{{ hw.student.first_name }} {{ hw.student.last_name }}</td>
+                            <td>{{ hw.text_data }}</td>
+                            <td>
+                                <input type="number" name="grade_{{ hw.student.id }}" min="1" max="12" style="width: 60px;" value="{{ hw.grade.grade }}">
+                            </td>
+                            <td>
+                                <button type="submit">Зберегти</button>
+                            </td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Поки що жоден студент не здав домашнє завдання.</p>
+        {% endif %}
+    </div>
+</section>
 {% endif %}
 {% endblock %}

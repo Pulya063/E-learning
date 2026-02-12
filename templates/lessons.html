@@ -9,18 +9,9 @@
         <button type="submit">Створити</button>
     </form>
     {% for lesson in all_teachers_lessons %}
-        <h2>Предмети:</h2>
+        <h2>Уроки:</h2>
         <div>
-            <label>Назва:</label>
-            {{ lesson.lesson_name }}<br>
-            <label>Дати:</label>
-            {{ lesson.lesson_date }}<br>
-            <label>Домашня робота:</label>
-            {{ lesson.homework }}<br>
-            <label>Опис:</label>
-            {{ lesson.description }}<br>
-            <label>Предмет:</label>
-            {{ lesson.subject }}
+            <a href="{% url 'one_lesson_teacher' lesson.id %}">{{ lesson.lesson_name }}, {{ lesson.lesson_date }}</a>
         </div>
     {% endfor %}
 </section>

@@ -2,21 +2,13 @@ import datetime
 
 from django.conf import settings
 from django.db import models
-from django.db.models import ForeignKey
-from django.db.models.fields import DateField, CharField, TextField, FilePathField
+from django.db.models import ForeignKey, FileField
+from django.db.models.fields import DateField, CharField, TextField, FilePathField, BooleanField, IntegerField
 
 
 class SchoolClass(models.Model):
-    start_year = DateField()
+    start_year = IntegerField()
     letter = CharField(max_length=1)
-
-    def date_validator(self):
-        if type(self.start_year) != datetime.date:
-            self.start_year = datetime.date(int(self.start_year.year), 8, 1)
-            return self.start_year
-        else:
-            return self.start_year
-
 
     def __str__(self):
         return f"{self.start_year} {self.letter}"
@@ -54,22 +46,25 @@ class Grade(models.Model):
     lesson = ForeignKey(Lesson, on_delete=models.CASCADE, related_name="lesson_grade")
     teacher = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="teacher_grade")
     grade = CharField(max_length=1)
+    is_homework = BooleanField(default=False)
 
     def __str__(self):
         return f"student: {self.student}, lesson: {self.lesson}, grade: {self.grade}"
+
+
 
 class StudentHomework(models.Model):
     student = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     lesson = ForeignKey(Lesson, on_delete=models.CASCADE)
     text_data = TextField(max_length=1000)
-    grade = ForeignKey(Grade, on_delete=models.CASCADE)
+    grade = ForeignKey(Grade, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"student: {self.student}, lesson: {self.lesson}, grade: {self.grade}"
 
 class File(models.Model):
     lesson = ForeignKey(Lesson, on_delete=models.CASCADE)
-    file_path = FilePathField()
+    file_path = FileField()
 
     def __str__(self):
         return f"file_path: {self.file_path}"

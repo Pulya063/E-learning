@@ -5,8 +5,24 @@ class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = ['subject', 'lesson_name', 'description', 'homework', 'school_class']
+        exclude = []
 
 class LessonVisitsForm(forms.ModelForm):
     class Meta:
         model = LessonVisits
         fields = ['lesson', 'student']
+
+class GradeForm(forms.ModelForm):
+    class Meta:
+        model = Grade
+        fields = ['student', 'lesson', 'teacher', 'grade']
+
+class HomeworkForm(forms.ModelForm):
+    class Meta:
+        model = StudentHomework
+        fields = ['student', 'lesson', 'text_data', 'grade']
+#
+# class FileForm(forms.ModelForm):
+#     class Meta:
+#         model = File
+#         fields = ['file_path', 'lesson']
