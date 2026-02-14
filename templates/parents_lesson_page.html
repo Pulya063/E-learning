@@ -1,0 +1,40 @@
+{% extends "base_main_page.html" %}
+{% block title %}Урок: {{ lesson.lesson_name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Деталі уроку: {{ lesson.lesson_name }}</h2>
+    <p>Вітаємо, {{ user.first_name }} {{ user.last_name }}!</p>
+
+    {% if lesson %}
+        <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 2fr; gap: 15px; align-items: center;">
+            <div style="font-weight: bold; color: var(--text-secondary);">Назва:</div>
+            <div>{{ lesson.lesson_name }}</div>
+
+            <div style="font-weight: bold; color: var(--text-secondary);">Дата:</div>
+            <div>{{ lesson.lesson_date }}</div>
+
+            <div style="font-weight: bold; color: var(--text-secondary);">Предмет:</div>
+            <div>{{ lesson.subject.subject_name }}</div>
+
+            <div style="font-weight: bold; color: var(--text-secondary);">Клас:</div>
+            <div>{{ lesson.school_class.start_year }} - {{ lesson.school_class.letter }}</div>
+
+            <div style="font-weight: bold; color: var(--text-secondary);">Вчитель:</div>
+            <div>{{ lesson.teacher.first_name }} {{ lesson.teacher.last_name }}</div>
+
+            <div style="font-weight: bold; color: var(--text-secondary);">Опис:</div>
+            <div>{{ lesson.description }}</div>
+
+            <div style="font-weight: bold; color: var(--text-secondary);">Домашнє завдання:</div>
+            <div>{{ lesson.homework }}</div>
+        </div>
+    {% else %}
+        <p>Урок не знайдено.</p>
+    {% endif %}
+
+    <div style="margin-top: 30px;">
+        <a href="{% url 'parent_page' %}" class="button" style="background-color: #757575; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Назад</a>
+    </div>
+</div>
+{% endblock %}

@@ -30,7 +30,7 @@ def all_lessons(request):
     subjects = Subject.objects.all()
     lessons = Lesson.objects.filter(teacher=request.user).all()
 
-    return render(request, 'lessons.html', {"form": form, "all_teachers_lessons": lessons, "subjects": subjects})
+    return render(request, 'teacher_lessons.html', {"form": form, "all_teachers_lessons": lessons, "subjects": subjects})
 
 
 @check_user_group('Teachers')
@@ -52,7 +52,7 @@ def one_lesson(request, lesson_id):
         student.is_absent = "checked" if student.id in absent_students else ""
         student.grade_value = grades_map.get(student.id, "")
 
-    return render(request, 'one_lesson.html', {'lesson': lesson, 'all_students': students_in_school_class, 'homeworks': homeworks})
+    return render(request, 'teacher_one_lesson.html', {'lesson': lesson, 'all_students': students_in_school_class, 'homeworks': homeworks})
 
 @check_user_group('Teachers')
 def check_student_absence(request, lesson_id):

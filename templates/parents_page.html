@@ -6,8 +6,7 @@
     <p>Вітаємо, {{ user.first_name }} {{ user.last_name }}!</p>
 
     <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
-        <a href="#" class="button" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Успішність дитини</a>
-        <a href="#" class="button" style="background-color: #2196F3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Розклад занять</a>
+        <a href="{% url 'parents_student_page' student.student_id %}" class="button" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Успішність дитини</a>
         <a href="{% url 'user_page' user.id %}" class="button" style="background-color: #ff9800; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Мій профіль</a>
     </div>
 </div>

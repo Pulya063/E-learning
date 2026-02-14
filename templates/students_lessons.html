@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% extends "base_main_page.html" %}
+{% block title %}Розклад уроків{% endblock %}
+{% block content %}
+<section>
+    <h1>Розклад уроків</h1>
+        {% for lesson in all_lessons %}
+         <div>
+            <a href="{% url 'one_lesson' lesson.id %}">{{ lesson.lesson_name }}, {{ lesson.lesson_date }}</a>
+        </div>
+        {% endfor %}
+</section>
+{% endblock %}

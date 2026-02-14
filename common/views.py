@@ -91,8 +91,6 @@ def main_page(request):
         messages.error(request, "Please login first.")
         return redirect('login')
 
-
-
 def start_page(request):
     if request.user:
         return redirect('main_page')

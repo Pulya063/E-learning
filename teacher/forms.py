@@ -17,10 +17,6 @@ class GradeForm(forms.ModelForm):
         model = Grade
         fields = ['student', 'lesson', 'teacher', 'grade']
 
-class HomeworkForm(forms.ModelForm):
-    class Meta:
-        model = StudentHomework
-        fields = ['student', 'lesson', 'text_data', 'grade']
 #
 # class FileForm(forms.ModelForm):
 #     class Meta:

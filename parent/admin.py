@@ -4,6 +4,6 @@ from parent.models import Parents
 
 @admin.register(Parents)
 class ParentAdmin(admin.ModelAdmin):
-    list_display = ['user_id', 'student']
+    list_display = ['parent', 'student']
 
-    search_fields = ['user_id']
+    search_fields = ['parent__username', 'student__username']

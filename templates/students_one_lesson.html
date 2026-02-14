@@ -1,0 +1,47 @@
+{% extends "base_main_page.html" %}
+
+{% block title %}Урок: {{ lesson.lesson_name }}{% endblock %}
+
+{% block content %}
+<section>
+    <div class="card">
+        <h2>Деталі уроку</h2>
+        {% if lesson %}
+            <div style="margin-bottom: 20px;">
+                <p><strong>Назва:</strong> {{ lesson.lesson_name }}</p>
+                <p><strong>Дата:</strong> {{ lesson.lesson_date }}</p>
+                <p><strong>Предмет:</strong> {{ lesson.subject.subject_name }}</p>
+                <p><strong>Клас:</strong> {{ lesson.school_class.start_year }} - {{ lesson.school_class.letter }}</p>
+                <p><strong>Опис:</strong> {{ lesson.description }}</p>
+                <p><strong>Домашнє завдання:</strong> {{ lesson.homework }}</p>
+            </div>
+        {% else %}
+            <p>Урок не знайдено.</p>
+        {% endif %}
+
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
+            <a href="{% url 'all_lessons' %}" class="button" style="background-color: #757575; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Назад до списку</a>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="card" style="margin-top: 20px;">
+        {% if lesson.homework %}
+            <h3>Домашнє завдання</h3>
+            <form action="{% url 'submit_homework' lesson.id %}" method="POST">
+                {% csrf_token %}
+                {{ homework_form }}<br>
+                <label>Оцінка:</label>
+                {% if not grade %}
+                    <button type="submit">Здати</button>
+                {% else %}
+                    {{ grade.grade }}<br>
+                    <button type="submit" >Перездати</button>
+                {% endif %}
+            </form>
+        {% else %}
+            <p>Урок не має домашнього завдання.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

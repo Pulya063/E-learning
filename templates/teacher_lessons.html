@@ -3,11 +3,12 @@
 {% block title %}Створення Уроку{% endblock %}
 {% block content %}
 <section>
-    <form action="{% url 'all_lessons_teacher' %}" method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Створити</button>
-    </form>
+
+        <form action="{% url 'all_lessons_teacher' %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Створити</button>
+        </form>
     {% for lesson in all_teachers_lessons %}
         <h2>Уроки:</h2>
         <div>

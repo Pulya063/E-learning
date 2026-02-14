@@ -23,7 +23,7 @@ class Subject(models.Model):
 
 class Lesson(models.Model):
     subject = ForeignKey(Subject, on_delete=models.CASCADE)
-    lesson_date = DateField(default=datetime.date.today())
+    lesson_date = DateField(default=datetime.date.today)
     teacher = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     lesson_name = CharField(max_length=70)
     description = TextField(max_length=1000)
@@ -48,6 +48,7 @@ class Grade(models.Model):
     grade = CharField(max_length=1)
     is_homework = BooleanField(default=False)
 
+
     def __str__(self):
         return f"student: {self.student}, lesson: {self.lesson}, grade: {self.grade}"
 
@@ -57,7 +58,7 @@ class StudentHomework(models.Model):
     student = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     lesson = ForeignKey(Lesson, on_delete=models.CASCADE)
     text_data = TextField(max_length=1000)
-    grade = ForeignKey(Grade, on_delete=models.CASCADE, null=True)
+    grade = ForeignKey(Grade, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"student: {self.student}, lesson: {self.lesson}, grade: {self.grade}"
