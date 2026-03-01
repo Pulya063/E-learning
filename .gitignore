@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Fixtures (if you want to ignore them, though usually they are committed)
+# fixtures/
+# *.json
