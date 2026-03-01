@@ -22,6 +22,7 @@ env/
 *.swp
 *.swo
 
-# Fixtures (if you want to ignore them, though usually they are committed)
-# fixtures/
+# Fixtures
 fixture.json
+fixtures/
+*.json
