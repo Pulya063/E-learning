@@ -24,4 +24,4 @@ env/
 
 # Fixtures (if you want to ignore them, though usually they are committed)
 # fixtures/
-# *.json
+fixture.json
