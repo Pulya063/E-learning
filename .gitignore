@@ -22,7 +22,3 @@ env/
 *.swp
 *.swo
 
-# Fixtures
-fixture.json
-fixtures/
-*.json
